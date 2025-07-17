@@ -35,7 +35,7 @@ public class Program
         {
             Console.WriteLine("Connecting to Azure SQL Database...");
 
-            using (SqlConnection connection = new SqlConnection("Server=tcp:sadblf.database.windows.net,1433;Initial Catalog=sqldb;Persist Security Info=False;User ID=adminsa;Password=;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
+            using (SqlConnection connection = new SqlConnection("Server=tcp:<>,1433;Initial Catalog=sqldb;Persist Security Info=False;User ID=adminsa;Password=;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
             {
                 await connection.OpenAsync();
                 Console.WriteLine("Successfully connected to Azure SQL Database!");
