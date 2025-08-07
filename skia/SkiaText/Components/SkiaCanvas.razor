@@ -1,0 +1,43 @@
+
+@using SkiaSharp
+@using SkiaSharp.Views.Blazor
+
+<h3>SkiaSharp Canvas</h3>
+
+<SKCanvasView OnPaintSurface="OnCanvasViewPaintSurface" Width="600" Height="400" />
+
+@code {
+    private void OnCanvasViewPaintSurface(SKPaintSurfaceEventArgs args)
+    {
+        // Get the canvas, which is your drawing surface
+        SKCanvas canvas = args.Surface.Canvas;
+        
+        // Clear the canvas to a solid color
+        canvas.Clear(SKColors.LightGray);
+        
+        // Use an SKPaint object to define the drawing style
+        using (var paint = new SKPaint
+        {
+            Color = SKColors.Blue,
+            StrokeWidth = 5,
+            Style = SKPaintStyle.Stroke
+        })
+        {
+            // Draw a rectangle
+            canvas.DrawRect(50, 50, 200, 100, paint);
+        }
+
+        // Add text to the canvas
+        using (var textPaint = new SKPaint
+        {
+            Color = SKColors.Black,
+            TextSize = 40,
+            IsAntialias = true,
+            Typeface = SKTypeface.FromFamilyName("Arial")
+        })
+        {
+            string text = "Hello, Blazor & SkiaSharp!";
+            canvas.DrawText(text, 50, 200, textPaint);
+        }
+    }
+}
