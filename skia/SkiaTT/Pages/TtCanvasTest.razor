@@ -33,13 +33,25 @@
         using (var textPaint = new SKPaint
         {
             Color = SKColors.Black,
-            TextSize = 40,
+            TextSize = 20,
             IsAntialias = true,
             Typeface = SKTypeface.FromFamilyName("Arial")
         })
         {
             string text = "Hello, Blazor & SkiaSharp!";
             canvas.DrawText(text, 50, 200, textPaint);
+        }
+
+        using (var textPaint = new SKPaint
+        {
+            Color = SKColors.Black,
+            TextSize = 40,
+            IsAntialias = true,
+            Typeface = SKTypeface.FromFamilyName("Arial")
+        })
+        {
+            string text = "Hello, Blazor & SkiaSharp text 40px!";
+            canvas.DrawText(text, 50, 400, textPaint);
         }
     }
 }
