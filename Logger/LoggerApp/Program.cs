@@ -2,13 +2,14 @@
 
 using System.Security.Principal;
 using Microsoft.Extensions.Logging;
+using AvevaApp;
 
 class Program
 {
 
     private static readonly string LoggerDllPath = GetLoggerDllPath();
 
-    private int identity = 0;
+    private static int identity = 0;
     public static void Main()
     {
         using var loggerFactory = LoggerFactory.Create(builder =>
@@ -24,7 +25,7 @@ class Program
 
         // var custoFlagName = "helloFlag";
 
-        int i =0;
+        int i =24;
         if (loggerClient != null)
         {
             while (i < 25)
@@ -48,8 +49,7 @@ class Program
         i=100;
         while (i < 125)
         {
-            var isEnabled = loggerClient.IsCustomLogEnabled(custoFlagName);
-            Console.WriteLine($"Current Value of '{custoFlagName}' is: {isEnabled}");
+            Console.WriteLine($"Current Value of 'i' is: {i}");
             Thread.Sleep(2000);
             i++;
 
@@ -64,9 +64,10 @@ class Program
             return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFilesX86), @"ArchestrA\LoggerDll.dll");
         }
 
-    private static bool AAInitialize()
+    private static void AAInitialize()
     {
         var mh = 0;
+        Console.WriteLine($"LoggerDllPath {LoggerDllPath}");
         NativeMethods.LoadLibraryW(LoggerDllPath);
         var rc = NativeMethods.RegisterLoggerClient(ref mh);
         identity = mh;

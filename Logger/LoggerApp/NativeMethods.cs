@@ -27,7 +27,7 @@ namespace AvevaApp
     {
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Method does not have to be used by all clients of the Logger.")]
         [DllImport("kernel32")]
-        internal static extern IntPtr LoadLibraryW([MarshalAs(UnmanagedType.LPWStr)] string lpMdoule);
+        internal static extern IntPtr LoadLibraryW([MarshalAs(UnmanagedType.LPWStr)] string lpModule);
 
         /// <summary>
         ///     The register logger client.
