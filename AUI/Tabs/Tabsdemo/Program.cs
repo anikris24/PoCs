@@ -2,8 +2,13 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Tabsdemo;
 using VisCore.Blazor.Common.Components.OverlayManager;
+using MudBlazor.Services;
+
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
+// Add this line here:
+builder.Services.AddMudServices();
+
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
