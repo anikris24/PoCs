@@ -1,0 +1,57 @@
+@using Microsoft.AspNetCore.Components.QuickGrid
+
+<div class="p-4">
+    <h3 class="mb-4">Top Indian Cricketers</h3>
+
+    @* Search Filter *@
+    <div class="mb-3">
+        <input type="search" class="form-control w-25" 
+               placeholder="Search by name..." 
+               @bind="searchTerm" @bind:event="oninput" />
+    </div>
+
+    <div class="grid-container border rounded">
+        <QuickGrid Items="@FilteredCricketers" Pagination="@pagination">
+            <PropertyColumn Property="@(c => c.Rank)" Title="Rank" Sortable="true" />
+            <PropertyColumn Property="@(c => c.Name)" Title="Name" Sortable="true" />
+            <PropertyColumn Property="@(c => c.Role)" Title="Role" Sortable="true" />
+            <PropertyColumn Property="@(c => c.Format)" Title="Specialty" />
+            
+            @* Template Column for custom styling *@
+            <TemplateColumn Title="Status">
+                <span class="badge @(context.IsActive ? "bg-success" : "bg-secondary")">
+                    @(context.IsActive ? "Active" : "Legend")
+                </span>
+            </TemplateColumn>
+        </QuickGrid>
+    </div>
+
+    <Paginator State="@pagination" />
+</div>
+
+@code {
+    private string searchTerm = string.Empty;
+    private PaginationState pagination = new PaginationState { ItemsPerPage = 5 };
+
+    // Data Source
+    private List<Cricketer> cricketers = new()
+    {
+        new(1, "Sachin Tendulkar", "Batsman", "ODI/Test", false),
+        new(2, "Virat Kohli", "Batsman", "All Formats", true),
+        new(3, "MS Dhoni", "Wicket-keeper/Captain", "ODI/T20", false),
+        new(4, "Kapil Dev", "All-rounder", "ODI/Test", false),
+        new(5, "Rohit Sharma", "Batsman/Captain", "All Formats", true),
+        new(6, "Sunil Gavaskar", "Batsman", "Test", false),
+        new(7, "Jasprit Bumrah", "Bowler", "All Formats", true),
+        new(8, "Anil Kumble", "Bowler", "Test/ODI", false),
+        new(9, "Ravindra Jadeja", "All-rounder", "All Formats", true),
+        new(10, "Rahul Dravid", "Batsman", "Test/ODI", false)
+    };
+
+    // IQueryable is required for QuickGrid performance
+    private IQueryable<Cricketer> FilteredCricketers => 
+        cricketers.Where(c => c.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+                  .AsQueryable();
+
+    public record Cricketer(int Rank, string Name, string Role, string Format, bool IsActive);
+}
