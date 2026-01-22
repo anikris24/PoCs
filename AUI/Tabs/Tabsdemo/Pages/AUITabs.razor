@@ -1,0 +1,64 @@
+
+@page "/aui-tabs";
+
+@using System.ComponentModel;
+@using System;
+
+@code {
+    private ITabsViewModel tabsViewModel;
+    int contentIndex;
+    public AUITabs()
+    {
+        var tabItems = new ObservableCollection<ITabItemViewModel>
+            {
+                CreateTabItem("1. Project Overview Tab"),
+                CreateTabItem("2. Application Settings Tab"),
+
+            };
+
+        tabsViewModel = new TabsViewModel(tabItems);
+        tabsViewModel.PropertyChanged += SelectedTab_PropertyChanged;
+
+    }
+
+    private ITabItemViewModel CreateTabItem(string title)
+    {
+        var tabItem = new TabItemViewModel(title, tabsViewModel)
+            {
+                CanClose = true,
+                TooltipViewModel = new TooltipViewModel(title, ElementPosition.TopCenter, 0, -10)
+            };
+
+        return tabItem;
+    }
+
+    
+    private void SelectedTab_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(ITabsViewModel.SelectedItem))
+        {
+            Console.WriteLine("SelectedItem: " + tabsViewModel.SelectedItem.Text);
+        }
+
+        UpdateContentIndex();
+        StateHasChanged();
+    }
+
+    private void UpdateContentIndex()
+    {
+        if (!tabsViewModel.TabItemViewModels.Any())
+        {
+            contentIndex = -1;
+        }
+
+        contentIndex = 0;
+        foreach (var tabItem in tabsViewModel.TabItemViewModels)
+        {
+            if (tabsViewModel.SelectedItem == tabItem)
+            {
+                break;
+            }
+            ++contentIndex;
+        }
+    }
+}
