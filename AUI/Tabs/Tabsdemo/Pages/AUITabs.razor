@@ -4,8 +4,22 @@
 @using System.ComponentModel;
 @using System;
 
+hello from tabs!
+
+<Tabs ViewModel="@tabsViewModel"></Tabs>
+
+<div class="display-area">
+    @if (selectedType != null)
+    {
+        @* This renders the actual component based on the type *@
+        <DynamicComponent Type="@selectedType" Parameters="@componentParameters" />
+    }
+</div>
+
 @code {
     private ITabsViewModel tabsViewModel;
+    private Type? selectedType;
+    Dictionary<string, object> componentParameters = new();
     int contentIndex;
     public AUITabs()
     {
@@ -32,7 +46,7 @@
         return tabItem;
     }
 
-    
+
     private void SelectedTab_PropertyChanged(object sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(ITabsViewModel.SelectedItem))
@@ -41,6 +55,20 @@
         }
 
         UpdateContentIndex();
+        switch (contentIndex)
+        {
+            case 0:
+                selectedType = typeof(QuickGridComp);
+                break;
+
+            case 1:
+                selectedType = typeof(MudTablesComp);
+                break;
+
+            default:
+                break;
+        }
+
         StateHasChanged();
     }
 
