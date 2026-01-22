@@ -1,4 +1,5 @@
 @using Microsoft.AspNetCore.Components.QuickGrid
+@implements IDisposable
 
 <div class="p-4">
     <h3 class="mb-4">Top Indian Cricketers</h3>
@@ -54,4 +55,9 @@
                   .AsQueryable();
 
     public record Cricketer(int Rank, string Name, string Role, string Format, bool IsActive);
+    public void Dispose()
+    {
+        // This runs when the user navigates away
+        Console.WriteLine($"Dispose {this.GetType().Name}...");
+    }
 }

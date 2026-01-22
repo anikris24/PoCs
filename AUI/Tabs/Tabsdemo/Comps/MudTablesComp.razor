@@ -1,4 +1,5 @@
 @using MudBlazor
+@implements IDisposable
 
 <MudTable Items="@jumpers" Hover="true" Striped="true" Dense="true" FixedHeader="true" Height="400px">
     <ToolBarContent>
@@ -44,4 +45,9 @@
     };
 
     public record LongJumper(string Name, double Distance, int Year, bool IsNationalRecord);
+    public void Dispose()
+    {
+        // This runs when the user navigates away
+        Console.WriteLine($"Dispose {this.GetType().Name}...");
+    }
 }
