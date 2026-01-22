@@ -1,0 +1,47 @@
+@using MudBlazor
+
+<MudTable Items="@jumpers" Hover="true" Striped="true" Dense="true" FixedHeader="true" Height="400px">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">India's Long Jump Legends</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString" Placeholder="Search Jumper..." 
+                      Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" 
+                      IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Name</MudTh>
+        <MudTh>Distance (m)</MudTh>
+        <MudTh>Year</MudTh>
+        <MudTh>Record Type</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudTd DataLabel="Distance"><b>@context.Distance m</b></MudTd>
+        <MudTd DataLabel="Year">@context.Year</MudTd>
+        <MudTd DataLabel="Type">
+            <MudChip T="string" Color="@(context.IsNationalRecord ? Color.Primary : Color.Default)" Size="Size.Small">
+                @(context.IsNationalRecord ? "National Record" : "Elite")
+            </MudChip>
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+
+@code {
+    private string searchString = "";
+    
+    private List<LongJumper> jumpers = new()
+    {
+        new("Jeswin Aldrin", 8.42, 2023, true),
+        new("Murali Sreeshankar", 8.36, 2022, false),
+        new("Anju Bobby George", 6.83, 2004, true), // Women's NR
+        new("T. C. Yohannan", 8.07, 1974, false),
+        new("Suresh Babu", 7.97, 1979, false),
+        new("Ankit Sharma", 8.19, 2016, false),
+        new("Nayana James", 6.55, 2017, false)
+    };
+
+    public record LongJumper(string Name, double Distance, int Year, bool IsNationalRecord);
+}
