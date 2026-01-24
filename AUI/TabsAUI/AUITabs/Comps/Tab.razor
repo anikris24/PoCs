@@ -1,0 +1,17 @@
+@* Tab.razor *@
+@code {
+    [Parameter] public string Name { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    
+    // Connects this child to the parent container
+    [CascadingParameter] public Tabs Parent { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (Parent == null)
+            throw new ArgumentNullException(nameof(Parent), "Tab must be inside a Tabs component");
+
+        // Register this tab with the parent so its name appears in the header row
+        Parent.AddTab(this);
+    }
+}
