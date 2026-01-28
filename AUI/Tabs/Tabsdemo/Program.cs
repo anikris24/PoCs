@@ -8,6 +8,7 @@ using MudBlazor.Services;
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 // Add this line here:
 builder.Services.AddMudServices();
+builder.Services.AddTelerikBlazor();
 
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
