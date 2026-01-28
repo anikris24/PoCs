@@ -1,0 +1,17 @@
+<div>
+    counter : @counter
+
+    <button onclick="@Inc"></button>
+</div>
+
+
+@code {
+
+    int counter;
+    void Inc() 
+    {
+        counter++;
+        Console.WriteLine($"Inc {counter}");
+    }
+
+}
