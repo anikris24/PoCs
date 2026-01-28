@@ -27,6 +27,7 @@ hello from tabs!
             {
                 CreateTabItem("1. Project Overview Tab"),
                 CreateTabItem("2. Application Settings Tab"),
+                CreateTabItem("3. Counter Settings Tab"),
 
             };
 
@@ -63,6 +64,9 @@ hello from tabs!
 
             case 1:
                 selectedType = typeof(MudTablesComp);
+                break;
+            case 2:
+                selectedType = typeof(CounterComp);
                 break;
 
             default:
